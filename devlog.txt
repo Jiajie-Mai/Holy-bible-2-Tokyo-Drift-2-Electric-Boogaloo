@@ -1,1 +1,27 @@
+# Holy bible 2: Tokyo Drift 2: Electric Boogaloo
 
+Jiajie Mai
+Theodore Peters
+Ryan Aday
+
+pd 07
+---------------------
+## Project description:
+Business is a dog-eat-dog world. Why not literally play like that? Introducing, this mess-I mean our project. In this "game," you will be able to play as a dog who is fighting other dogs to get that victory royale by selling and buying stocks! (Pete would be so proud of us) We hope to use real-time stock information to create an ultimate experience and perhaps add multiplayer. *gasp!* Join us for this dumpster fire-I mean our masterpiece and do many things out on the battleground to become the number one investor: the greatest buisnessdog!
+
+ ______   ______   __   __   __       ______   _______
+/_____/\ /_____/\ /_/\ /_/\ /_/\     /_____/\ /______/\
+\:::_ \ \\::::_\/_\:\ \\ \ \\:\ \    \:::_ \ \\::::__\/__
+ \:\ \ \ \\:\/___/\\:\ \\ \ \\:\ \    \:\ \ \ \\:\ /____/\
+  \:\ \ \ \\::___\/_\:\_/.:\ \\:\ \____\:\ \ \ \\:\\_  _\/
+   \:\/.:| |\:\____/\\ ..::/ / \:\/___/\\:\_\ \ \\:\_\ \ \
+    \____/_/ \_____\/ \___/_(   \_____\/ \_____\/ \_____\/
+==============================================================
+||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+
+==============================================================
+Jiajie Mai
+--------------------------------------------------------------
+Added Devlog.txt
+Added Project description
+==============================================================
