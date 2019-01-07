@@ -20,8 +20,8 @@ Business is a dog-eat-dog world. Why not literally play like that? Introducing, 
 ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
 
 ==============================================================
-Jiajie Mai
+Jiajie Mai -- 2019-1-6 20:44 
 --------------------------------------------------------------
-Added Devlog.txt
+Added devlog.txt
 Added Project description
 ==============================================================
