@@ -12,8 +12,8 @@ hashpass=hash_obj.hexdigest()
 
 '''Default users'''
 c.execute("INSERT INTO users VALUES(?, ?);", ('raday', hashpass))
-c.execute("INSERT INTO users VALUES(?, ?);", ('jasch', hashpass))
-c.execute("INSERT INTO users VALUES(?, ?);", ('ibelkebir', hashpass))
+c.execute("INSERT INTO users VALUES(?, ?);", ('jmai', hashpass))
+c.execute("INSERT INTO users VALUES(?, ?);", ('tpeters', hashpass))
 
 #VERY IMPORTANT-- HASHED PASSWORDS are 'hello', not the ones you had yesterday
 
