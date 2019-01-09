@@ -9,25 +9,25 @@ pd 07
 ## Project description:
 Business is a dog-eat-dog world. Why not literally play like that? Introducing, this mess-I mean our project. In this "game," you will be able to play as a dog who is fighting other dogs to get that victory royale by selling and buying stocks! (Pete would be so proud of us) We hope to use real-time stock information to create an ultimate experience and perhaps add multiplayer. *gasp!* Join us for this dumpster fire-I mean our masterpiece and do many things out on the battleground to become the number one investor: the greatest buisness-dog!
 
- _ .-') _     ('-.        (`-.                                       
-( (  OO) )  _(  OO)     _(OO  )_                                     
- \     .'_ (,------.,--(_/   ,. \ ,--.      .-'),-----.   ,----.     
- ,`'--..._) |  .---'\   \   /(__/ |  |.-') ( OO'  .-.  ' '  .-./-')  
- |  |  \  ' |  |     \   \ /   /  |  | OO )/   |  | |  | |  |_( O- ) 
- |  |   ' |(|  '--.   \   '   /,  |  |`-' |\_) |  |\|  | |  | .--, \ 
- |  |   / : |  .--'    \     /__)(|  '---.'  \ |  | |  |(|  | '. (_/ 
- |  '--'  / |  `---.    \   /     |      |    `'  '-'  ' |  '--'  |  
- `-------'  `------'     `-'      `------'      `-----'   `------'   
+ _ .-') _     ('-.        (`-.
+( (  OO) )  _(  OO)     _(OO  )_
+ \     .'_ (,------.,--(_/   ,. \ ,--.      .-'),-----.   ,----.
+ ,`'--..._) |  .---'\   \   /(__/ |  |.-') ( OO'  .-.  ' '  .-./-')
+ |  |  \  ' |  |     \   \ /   /  |  | OO )/   |  | |  | |  |_( O- )
+ |  |   ' |(|  '--.   \   '   /,  |  |`-' |\_) |  |\|  | |  | .--, \
+ |  |   / : |  .--'    \     /__)(|  '---.'  \ |  | |  |(|  | '. (_/
+ |  '--'  / |  `---.    \   /     |      |    `'  '-'  ' |  '--'  |
+ `-------'  `------'     `-'      `------'      `-----'   `------'
 ==============================================================
 ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
 
 ==============================================================
-Jiajie Mai -- 2019-01-06 20:44 
+Jiajie Mai -- 2019-01-06 20:44
 --------------------------------------------------------------
 Added devlog.txt
 Added Project description
 ==============================================================
-Ryan Aday -- 2019-01-08 12:17 
+Ryan Aday -- 2019-01-08 12:17
 --------------------------------------------------------------
 Fixed typos with devlog.txt
 ==============================================================
@@ -36,4 +36,8 @@ Jiajie Mai -- 2019-01-09 21:27
 Added a new "Game Data" database
 Reworked the users database
 Added a "Gameplay" section to describe how the combat system will work
+==============================================================
+Ryan Aday -- 2019-01-09 12:56
+--------------------------------------------------------------
+Added and modified my project0 for template
 ==============================================================
