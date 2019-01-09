@@ -102,11 +102,11 @@ def game():
 @app.route("/inc")
 def game1():
     increment()
-    return None
+    return str(getval())
 
 @app.route("/val")
 def game2():
-    return getval()
+    return str(getval())
 
 
 

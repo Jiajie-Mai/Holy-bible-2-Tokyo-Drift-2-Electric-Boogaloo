@@ -2,31 +2,37 @@
 <html>
   <head>
     <title>bazigna</title>
-    <script>
-      var val = () => {
-      var tst = new XMLHttpRequest();
-      tst.open("/val");
-      tst.send(null);
-      return tst.responseText;
-      }
-      
-      var a = document.getElementById("a");
-      a.addEventListener("mouseover",()=>{a.innerHTML=val();});
-
-      
-      var i = document.getElementById("i");
-      i.addEventListener("mouseover",()=>{a.innerHTML=inc();});
-
-      var inc = () => {
-      var tst = new XMLHttpRequest();
-      tst.open("/inc");
-      tst.send(null);
-      return val;
-      }
-    </script>
   </head>
   <body>
     <div id="a">0</div>
     <button id="i">hello</button>
+
+	<script>
+      
+      var a = document.getElementById("a");
+      setInterval(() => {
+      var tst = new XMLHttpRequest();
+	  tst.onreadystatechange = ()=>{
+	  if(tst.readyState===4)
+	  a.innerHTML=tst.responseText;
+	  }
+      tst.open("GET","/val");
+      tst.send(null);
+	  },100);
+
+	  var inc = () => {
+      
+      }
+	  
+      var i = document.getElementById("i");
+      i.addEventListener("click",()=>{
+	  var tst = new XMLHttpRequest();
+      tst.open("GET","/inc");
+      tst.send(null);
+	  console.log(tst.responseText);
+	  });
+
+    </script>
+
   </body>
 </html>
