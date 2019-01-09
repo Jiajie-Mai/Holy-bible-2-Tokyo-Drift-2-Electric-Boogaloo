@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title> {% block title %}{% endblock %} | Website</title>
+    </head>
+    <body>
+        <a href = "{{ url_for('index') }}">Home</a>
+        {% if current_user %}
+            <a href = "{{ url_for('profile', username = current_user) }}">Profile</a>
+            <a href = "{{ url_for('logout') }}">Logout</a>
+        {% else %}
+            <a href = "{{ url_for('login') }}">Login</a>
+            <a href = "{{ url_for('signup') }}">Signup</a>
+        {% endif %}
+
+        {% block content %} {% endblock %}
+        <br></br>
+        {% block footer %}
+            &copy; Ryan Aday, Jared Asch, Imad Belkebir (Team TL;DR)
+        {% endblock %}
+    </body>
+</html>
