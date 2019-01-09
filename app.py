@@ -3,6 +3,8 @@ from util.db_utils import create_user, login_user, insert_post, get_posts, edit_
 from os import urandom
 import hashlib
 
+from test import *
+
 app = Flask(__name__)
 app.secret_key = urandom(32)
 
@@ -84,6 +86,29 @@ def edit(post_id):
         return redirect(url_for("profile", username = post[1]))
     edit_post(post_id, request.form.get("blog_post"))
     return render_template("profile.html", user = post[1], posts = get_posts(get_post(post_id)[1])[::-1], current_user = session.get("user"))
+
+
+
+
+
+
+
+
+
+@app.route("/thing")
+def game():
+    return render_template("test.html")
+
+@app.route("/inc")
+def game1():
+    increment()
+    return None
+
+@app.route("/val")
+def game2():
+    return getval()
+
+
 
 
 if __name__ == "__main__":

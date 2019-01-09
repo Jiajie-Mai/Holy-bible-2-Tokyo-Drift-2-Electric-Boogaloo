@@ -1,0 +1,32 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <title>bazigna</title>
+    <script>
+      var val = () => {
+      var tst = new XMLHttpRequest();
+      tst.open("/val");
+      tst.send(null);
+      return tst.responseText;
+      }
+      
+      var a = document.getElementById("a");
+      a.addEventListener("mouseover",()=>{a.innerHTML=val();});
+
+      
+      var i = document.getElementById("i");
+      i.addEventListener("mouseover",()=>{a.innerHTML=inc();});
+
+      var inc = () => {
+      var tst = new XMLHttpRequest();
+      tst.open("/inc");
+      tst.send(null);
+      return val;
+      }
+    </script>
+  </head>
+  <body>
+    <div id="a">0</div>
+    <button id="i">hello</button>
+  </body>
+</html>
