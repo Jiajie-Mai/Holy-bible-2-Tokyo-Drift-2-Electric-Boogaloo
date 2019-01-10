@@ -87,11 +87,17 @@ def edit(post_id):
     edit_post(post_id, request.form.get("blog_post"))
     return render_template("profile.html", user = post[1], posts = get_posts(get_post(post_id)[1])[::-1], current_user = session.get("user"))
 
+@app.route("/stock")
+def stockData():
+    return redirect(url_for("stock"))
 
+@app.route("/battle")
+def battleData():
+    return redirect(url_for("battle"))
 
-
-
-
+@app.route("/userinf")
+def userData():
+    return redirect(url_for("userinf"))
 
 
 
@@ -107,8 +113,6 @@ def game1():
 @app.route("/val")
 def game2():
     return str(getval())
-
-
 
 
 if __name__ == "__main__":
