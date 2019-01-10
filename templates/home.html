@@ -1,5 +1,16 @@
 {% extends "base.html" %}
 
-{% block title %}
-    {{ title }}
-{% endblock %}
+<head>
+  <title> Buisness Doggo </title>
+</head>
+<body>
+  <h1> Welcome to our game, "Dog Eat Dog!" </h1>
+  <br>
+  Here, you will be able to play as a dog trading stocks to become the best buisness doggo and achieve that victory royale.
+  <br>
+  <br>
+  Gameplay will consist of a turn-based system where players will be presented with 5 stocks. They will choose a single stock to buy or short based on price history. Players will have a pool of money at the start of the battle that scales logarithmically with the total funds of their account. The number of shares purchased will be such that all stocks have an identical price, so the percent change after a short time period is what affects your monetary gain. After you are finished with your trading, your turn is ended and these calculations will start. As you win or lose money, the dollar amount you will be able to spend on stocks will increase, allowing you to make money more quickly. If somebody runs out of their allotted money, they immediately lose. Alternatively, whoever has the most money after 10 rounds will achieve VICTORY ROYALE (victory Quarter Pounder in the states).
+</body>
+
+
+{% block content %}
