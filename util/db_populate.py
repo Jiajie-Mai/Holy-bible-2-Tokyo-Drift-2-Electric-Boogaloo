@@ -1,7 +1,7 @@
 import sqlite3
 import hashlib
 
-DB_FILE = "app.db"
+DB_FILE = "data.db"
 
 db = sqlite3.connect(DB_FILE)
 c = db.cursor()

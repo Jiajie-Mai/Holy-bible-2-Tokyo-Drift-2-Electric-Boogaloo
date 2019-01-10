@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, session, redirect, url_for, flash
-from util.db_utils import create_user, login_user, insert_post, get_posts, edit_post, get_post, get_all_posts
+from util.db_utils import create_user, login_user
 from os import urandom
 import hashlib
 
@@ -8,10 +8,7 @@ from test import *
 app = Flask(__name__)
 app.secret_key = urandom(32)
 
-@app.route("/", methods=["GET"])
-def index():
-    '''Index takes current user and their posts '''
-    return render_template("index.html", current_user = session.get("user"), posts = get_all_posts()[::-1])
+
 
 
 @app.route("/signup", methods = ["GET", "POST"])

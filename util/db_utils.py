@@ -3,7 +3,7 @@ from os import urandom
 from datetime import datetime
 import sqlite3
 import hashlib
-DB_FILE = "app.db"
+DB_FILE = "data.db"
 
 
 '''Used to check if user exists with create_user,
