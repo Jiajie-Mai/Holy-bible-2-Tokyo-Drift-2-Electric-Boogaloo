@@ -8,6 +8,9 @@ from test import *
 app = Flask(__name__)
 app.secret_key = urandom(32)
 
+@app.route("/", methods=["GET"])
+def home():
+    return render_template("home.html")
 
 
 
