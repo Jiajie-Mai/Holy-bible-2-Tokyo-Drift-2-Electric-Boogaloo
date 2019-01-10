@@ -1,5 +1,18 @@
 {% extends "base.html" %}
 
+{% block xtralinks %}
+<script src="battle.js"></script>
+{% endblock %}
+
 {% block title %}
-    {{ title }}
+{{ p1 }} vs. {{ p2 }}
+{% endblock %}
+
+{% block content %}
+
+<div id="edosh"></div>
+<div id="round"></div>
+<ul  id="stock"></ul >
+<div id="pdosh"></div>
+
 {% endblock %}

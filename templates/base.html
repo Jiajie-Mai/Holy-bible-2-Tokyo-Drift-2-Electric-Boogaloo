@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title> {% block title %}{% endblock %} | Website</title>
+        <title> {% block title %}{% endblock %}</title>
+	{% block xtralinks %}{% endblock %}
     </head>
     <body>
         <a href = "{{ url_for('index') }}">Home</a>
@@ -16,7 +17,7 @@
         {% block content %} {% endblock %}
         <br></br>
         {% block footer %}
-            &copy; Ryan Aday, Theodore Peters, Jiajie Mai (Team Holy-bible-2-Tokyo-Drift-2-Electric-Boogaloo)
+        &copy; Holy bible 2: Tokyo Drift 2: Electric Boogaloo (come_to_computer interaction_club.txt)
         {% endblock %}
     </body>
 </html>
