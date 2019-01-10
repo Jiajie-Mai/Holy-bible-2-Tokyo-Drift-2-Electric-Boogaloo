@@ -8,11 +8,11 @@ from test import *
 app = Flask(__name__)
 app.secret_key = urandom(32)
 
+IEXTRADING_URL-STUB="https://api.iextrading.com/1.0"
+
 @app.route("/index", methods=["GET"])
 def home():
     return render_template("home.html")
-
-
 
 @app.route("/signup", methods = ["GET", "POST"])
 def signup():
