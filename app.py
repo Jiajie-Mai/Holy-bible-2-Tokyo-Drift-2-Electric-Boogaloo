@@ -8,11 +8,11 @@ from test import *
 app = Flask(__name__)
 app.secret_key = urandom(32)
 
-@app.route("/", methods=["GET"])
+IEXTRADING_URL-STUB="https://api.iextrading.com/1.0"
+
+@app.route("/index", methods=["GET"])
 def home():
     return render_template("home.html")
-
-
 
 @app.route("/signup", methods = ["GET", "POST"])
 def signup():
@@ -29,7 +29,7 @@ def signup():
         hashpass = hash_obj.hexdigest()
         if create_user(username, password):
             login_user(username, hashpass)
-            return redirect(url_for("index"))
+            return redirect(url_for("/"))
         return render_template("signup.html", title = "Sign Up")
 
 
