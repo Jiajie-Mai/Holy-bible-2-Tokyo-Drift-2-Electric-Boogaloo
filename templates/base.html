@@ -4,7 +4,7 @@
         <title> {% block title %}{% endblock %} | Website</title>
     </head>
     <body>
-        <a href = "{{ url_for('index') }}">Home</a>
+        <a href = "{{ url_for("home") }}">Home</a>
         {% if current_user %}
             <a href = "{{ url_for('profile', username = current_user) }}">Profile</a>
             <a href = "{{ url_for('logout') }}">Logout</a>

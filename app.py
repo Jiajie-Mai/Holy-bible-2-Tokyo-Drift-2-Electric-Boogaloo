@@ -8,7 +8,7 @@ from test import *
 app = Flask(__name__)
 app.secret_key = urandom(32)
 
-@app.route("/", methods=["GET"])
+@app.route("/index", methods=["GET"])
 def home():
     return render_template("home.html")
 
@@ -18,7 +18,7 @@ def home():
 def signup():
     '''Looks for current user; if exists, redirs them to homepage.  Otherwise, sends them to signup page'''
     if "user" in session.keys():
-        return redirect(url_for(""))
+        return redirect(url_for("index"))
     if request.method == "GET":
         return render_template("signup.html", title = "Sign Up", current_user = session.get("user"))
     else:
@@ -29,14 +29,14 @@ def signup():
         hashpass = hash_obj.hexdigest()
         if create_user(username, password):
             login_user(username, hashpass)
-            return redirect(url_for(""))
+            return redirect(url_for("/"))
         return render_template("signup.html", title = "Sign Up")
 
 
 @app.route("/login", methods = ["GET", "POST"])
 def login():
     if "user" in session.keys():
-        return redirect(url_for(""))
+        return redirect(url_for("index"))
     if request.method == "GET":
         return render_template("login.html", title = "Login", current_user = session.get("user"))
     else:
@@ -49,7 +49,7 @@ def login():
         '''If login fail, redir to login page, otherwise send user to homepage'''
         if login == None:
             return render_template("login.html", title = "Login")
-        return redirect(url_for(""))
+        return redirect(url_for("index"))
 
 
 @app.route("/logout", methods = ["GET"])
