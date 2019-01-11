@@ -71,7 +71,7 @@ def stockData():
 
 @app.route("/battle")
 def battleData():
-    return redirect(url_for("battle"))
+    return render_template("battle.html")
 
 @app.route("/userinf")
 def userData():
