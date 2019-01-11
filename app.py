@@ -8,7 +8,7 @@ from test import *
 app = Flask(__name__)
 app.secret_key = urandom(32)
 
-IEXTRADING_URL-STUB="https://api.iextrading.com/1.0"
+
 
 @app.route("/index", methods=["GET"])
 def home():
@@ -64,28 +64,6 @@ def logout():
 def profile(username):
     '''Homepage if logged in to specific account'''
     return render_template("profile.html", user = username, posts = get_posts(username)[::-1], current_user = session.get("user"))
-
-
-@app.route("/create_post", methods = ["POST"])
-def create_post():
-    insert_post(request.form.get("blog_post"))
-    return redirect(request.referrer)
-
-
-@app.route("/edit/<int:post_id>", methods=["GET", "POST"])
-def edit(post_id):
-    if request.method == "GET":
-        post = get_post(post_id)
-        '''If the user of the post doesn't match current user, redirs them to profile page'''
-        if(post[1] != session.get("user")):
-            return redirect(url_for("profile", username = post[1]))
-        return render_template("profile.html", user = session.get("user"), current_user = session.get("user"), posts = get_posts(get_post(post_id)[1])[::-1], edit_id = post_id)
-
-    post = get_post(post_id)
-    if(post[1] != session.get("user")):
-        return redirect(url_for("profile", username = post[1]))
-    edit_post(post_id, request.form.get("blog_post"))
-    return render_template("profile.html", user = post[1], posts = get_posts(get_post(post_id)[1])[::-1], current_user = session.get("user"))
 
 @app.route("/stock")
 def stockData():

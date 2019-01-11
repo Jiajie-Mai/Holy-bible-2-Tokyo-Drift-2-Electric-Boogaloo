@@ -1,5 +1,9 @@
 {% extends "base.html" %}
 
-{% block title %}
-    {{ title }}
+{% block content %}
+<ol>
+  {% for stock in stocks %}
+  <li>{{stock.name}}: {{stock.number}} </li>
+  {% endfor %}
+</ol>
 {% endblock %}
