@@ -101,19 +101,18 @@ def userData():
 
 
 
-@app.route("/thing")
-def game():
-    return render_template("test.html")
-
-@app.route("/inc")
-def game1():
-    increment()
-    return str(getval())
-
-@app.route("/val")
-def game2():
-    return str(getval())
-
+#@app.route("/thing")
+#def game():
+#    return render_template("test.html")
+#
+#@app.route("/inc")
+#def game1():
+#    increment()
+#    return str(getval())
+#
+#@app.route("/val")
+#def game2():
+#    return str(getval())
 
 if __name__ == "__main__":
     app.debug = True
