@@ -72,3 +72,10 @@ Added new Static folder
 Worked on style.css
 Changed base.html
 ==============================================================
+Ryan Aday -- 2019-01-13 12:47
+--------------------------------------------------------------
+Fixed changes that were pushed.
+Sign up and login are noww fxnal, earlier bugs due to current_user not being identified.
+Still working on IEX API data, will fix that shortly.
+NOTE:  Please do not do git add .!  I had to reedit issues I had fixed earlier.
+==============================================================

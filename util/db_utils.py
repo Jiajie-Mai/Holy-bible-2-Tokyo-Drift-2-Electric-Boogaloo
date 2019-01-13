@@ -1,6 +1,7 @@
 from flask import flash, session
 from os import urandom
 from datetime import datetime
+from random import randint
 import sqlite3
 import hashlib
 DB_FILE = "data.db"
@@ -31,8 +32,9 @@ def create_user(username, password):
         return False
     hash_obj = hashlib.md5(password)
     hashpass = hash_obj.hexdigest()
+    id_generator = randint(100000, 999999)
     ''' If username and password meet length specifications, add name and pass combo to table '''
-    c.execute("INSERT INTO users VALUES (?, ?)", [username, hashpass])
+    c.execute("INSERT INTO users VALUES (?, ?, ?)", [username, hashpass, id_generator])
     db.commit()
     db.close()
     return True
@@ -41,6 +43,7 @@ def login_user(username, password):
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()
     user = get_user(username)
+    print(user)
     ''' Checks if no data can be found on given username '''
     if user == None:
         flash("User does not exist")
@@ -61,4 +64,5 @@ def get_user(username):
     c = db.cursor()
     user = c.execute("SELECT * FROM users WHERE users.username == ?" , [username]).fetchone()
     db.close()
+    print(user)
     return user

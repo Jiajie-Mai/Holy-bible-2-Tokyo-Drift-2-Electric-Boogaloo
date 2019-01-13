@@ -11,9 +11,9 @@ hash_obj= hashlib.md5(defPass)
 hashpass=hash_obj.hexdigest()
 
 '''Default users'''
-c.execute("INSERT INTO users VALUES(?, ?, ?);", (123, 'raday', hashpass))
-c.execute("INSERT INTO users VALUES(?, ?, ?);", (456, 'jmai', hashpass))
-c.execute("INSERT INTO users VALUES(?, ?, ?);", (789, 'tpeters', hashpass))
+c.execute("INSERT INTO users VALUES(?, ?, ?);", ('raday', hashpass, 123))
+c.execute("INSERT INTO users VALUES(?, ?, ?);", ('jmai', hashpass, 456))
+c.execute("INSERT INTO users VALUES(?, ?, ?);", ('tpeters', hashpass, 789))
 
 c.execute("INSERT INTO gameData VALUES(?, ?, ?);", (123, 1000, "AAPL"))
 c.execute("INSERT INTO gameData VALUES(?, ?, ?);", (456, 2000, "GOOG"))
