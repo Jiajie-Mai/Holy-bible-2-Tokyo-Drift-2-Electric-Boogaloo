@@ -8,7 +8,14 @@ from test import *
 app = Flask(__name__)
 app.secret_key = urandom(32)
 
+#API for IEX Trading
+#you need to get the stock and place it btwn stub and ender
+IEXTRADING_TEST = "https://api.iextrading.com/1.0/stock/aapl/batch?types=quote,news,chart&range=1m&last=10"
+IEX_STUB = "https://api.iextrading.com/1.0/"
+IEX_ENDER = "batch?types=quote,news,chart&range=1m&last=10"
 
+#API for Random Dog Images
+DOG_STUB = "https://dog.ceo/api/breeds/image/random"
 
 @app.route("/index", methods=["GET"])
 def home():
