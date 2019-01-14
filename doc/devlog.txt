@@ -85,3 +85,8 @@ Ryan Aday -- 2019-01-13 13:06
 Added API stubs to be used for battle system.  Stock APi returns highs, lows,
 wk changes, and chart data.
 ==============================================================
+Jiajie Mai -- 2019-01-13 10:18
+--------------------------------------------------------------
+Worked on the CSS 
+Worked on the README.md
+==============================================================
