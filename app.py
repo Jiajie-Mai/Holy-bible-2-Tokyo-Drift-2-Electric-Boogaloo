@@ -70,7 +70,7 @@ def logout():
 @app.route("/u/<username>", methods = ["GET"])
 def profile(username):
     '''Homepage if logged in to specific account'''
-    return render_template("profile.html", user = username, posts = get_posts(username)[::-1], current_user = session.get("user"))
+    return render_template("userinf.html", user = username, current_user = session.get("user"))
 
 @app.route("/stock")
 def stockData():
