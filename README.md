@@ -29,26 +29,40 @@ Both of these applications are useful for the actual functionality of the websit
 ## How to run our masterpiece
 1. Open a terminal
 2. Create a virtual environment:
-> $ python3 -m venv virtual_env_name
+'''
+$ python3 -m venv virtual_env_name
+'''
 3. Activate the virtual environment:
 Mac OS/Linux:
-> $ source virtual_env_name/bin/activate
+'''
+$ source virtual_env_name/bin/activate
+'''
 Windows:
-> $ virtual_env_name\Scripts\activate
+'''
+$ virtual_env_name\Scripts\activate
+'''
 After activating you should see (virtual_env_name) in front.
 4. Download the packages in the [requirements.txt] (https://github.com/Jiajie-Mai/Holy-bible-2-Tokyo-Drift-2-Electric-Boogaloo/blob/master/requirements.txt) via pip install
 5. Clone this baby using SSH
-> $ git clone git@github.com:Jiajie-Mai/Holy-bible-2-Tokyo-Drift-2-Electric-Boogaloo.git
+'''
+$ git clone git@github.com:Jiajie-Mai/Holy-bible-2-Tokyo-Drift-2-Electric-Boogaloo.git
+'''
 6. Change to the correct directory:
-> $ cd Holy-bible-2-Tokyo-Drift-2-Electric-Boogaloo/
+'''
+$ cd Holy-bible-2-Tokyo-Drift-2-Electric-Boogaloo/
+'''
 7. Run this application by typing:
-> (virtual_env_name)$ python app.py
+'''
+(virtual_env_name)$ python app.py
+'''
 8. This should appear: 
->  * Debug mode: on
->  * Restarting with stat
->  * Debugger is active!
->  * Debugger PIN: 209-234-496
->  * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+'''
+  * Debug mode: on
+  * Restarting with stat
+  * Debugger is active!
+  * Debugger PIN: 209-234-496
+  * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
+'''
 9. Open your web browser of choice and go to [http://localhost:5000/] (http://localhost:5000/).
 
 
