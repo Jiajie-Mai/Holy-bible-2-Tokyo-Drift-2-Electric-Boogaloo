@@ -22,7 +22,9 @@ Keeps your data safe, allows for accounts to be made without somebody being able
 Pretty important for installing other things on this list. Most likely already comes when you have downloaded Python.
 - venv
 Stops damage if you do run into an error. Creates a separate, isolated environment to keep your computer safe. Using Python 3.0.0 or higher already has this. However, if you do need it as you have a version older than Python 3.0.0, use this:
-> pip install virtualenv
+```
+pip install virtualenv
+```
 - Jinja2/Flask
 Both of these applications are useful for the actual functionality of the website from creating them to making them actually appear on your browser.
 
