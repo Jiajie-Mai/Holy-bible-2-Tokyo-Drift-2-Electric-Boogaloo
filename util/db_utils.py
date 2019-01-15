@@ -59,6 +59,13 @@ def login_user(username, password):
     db.close()
     return True
 
+def get_user(username):
+    db = sqlite3.connect(DB_FILE)
+    c = db.cursor()
+    user = c.execute("SELECT * FROM users WHERE users.username == ?;" , (username,)).fetchone()
+    db.close()
+    print(user)
+    return user
 
 def get_user(username):
     db = sqlite3.connect(DB_FILE)
@@ -68,11 +75,16 @@ def get_user(username):
     print(user)
     return user
 
-def get_dogbloons(username):
+def get_userId(username):
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()
-    user= get_user(username)
-    dogbloons = c.execute("SELECT * FROM users WHERE gameData.username == ?;" , (username,)).fetchone()
+    user = get_user(username)
+    return user[2]
+
+def get_dogbloons(userId):
+    db = sqlite3.connect(DB_FILE)
+    c = db.cursor()
+    dogbloons = c.execute("SELECT * FROM users WHERE gameData.id == ?;" , (userId,)).fetchone()
     db.close()
-    print(user)
-    return user
+    print(dogbloons[1])
+    return dogbloons[1]

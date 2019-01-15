@@ -82,7 +82,7 @@ def battleData():
 
 @app.route("/userinf")
 def userData():
-    return redirect(url_for("userinf"))
+    return render_template("userinf.html", money=get_dogbloons(get_userId(session.get("user"))))
 
 @app.route("/find")
 def findm():
