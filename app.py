@@ -84,7 +84,11 @@ def battleData():
 def userData():
     return redirect(url_for("userinf"))
 
-
+@app.route("/search")
+def findm():
+    
+@app.route("/searchv/<username>")
+def findv():
 
 #@app.route("/thing")
 #def game():
