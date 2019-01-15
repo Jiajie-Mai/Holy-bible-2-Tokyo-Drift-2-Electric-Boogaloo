@@ -35,6 +35,7 @@ def create_user(username, password):
     id_generator = c.execute("SELECT count(*) FROM users;").fetchall()[0][0]
     ''' If username and password meet length specifications, add name and pass combo to table '''
     c.execute("INSERT INTO users VALUES (?, ?, ?);", (username, hashpass, id_generator))
+
     db.commit()
     db.close()
     return True
@@ -63,6 +64,15 @@ def get_user(username):
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()
     user = c.execute("SELECT * FROM users WHERE users.username == ?;" , (username,)).fetchone()
+    db.close()
+    print(user)
+    return user
+
+def get_dogbloons(username):
+    db = sqlite3.connect(DB_FILE)
+    c = db.cursor()
+    user= get_user(username)
+    dogbloons = c.execute("SELECT * FROM users WHERE gameData.username == ?;" , (username,)).fetchone()
     db.close()
     print(user)
     return user
