@@ -13,7 +13,7 @@ reports back int to see if given user has data '''
 def count_users(username):
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()
-    data = c.execute("SELECT * FROM users WHERE users.username == ?", [username]).fetchall()
+    data = c.execute("SELECT * FROM users WHERE users.username == ?;", (username,)).fetchall()
     db.close()
     return len(data)
 
@@ -32,9 +32,9 @@ def create_user(username, password):
         return False
     hash_obj = hashlib.md5(password)
     hashpass = hash_obj.hexdigest()
-    id_generator = randint(100000, 999999)
+    id_generator = c.execute("SELECT count(*) FROM users;").fetchall()[0][0]
     ''' If username and password meet length specifications, add name and pass combo to table '''
-    c.execute("INSERT INTO users VALUES (?, ?, ?)", [username, hashpass, id_generator])
+    c.execute("INSERT INTO users VALUES (?, ?, ?);", (username, hashpass, id_generator))
     db.commit()
     db.close()
     return True
@@ -62,7 +62,7 @@ def login_user(username, password):
 def get_user(username):
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()
-    user = c.execute("SELECT * FROM users WHERE users.username == ?" , [username]).fetchone()
+    user = c.execute("SELECT * FROM users WHERE users.username == ?;" , (username,)).fetchone()
     db.close()
     print(user)
     return user

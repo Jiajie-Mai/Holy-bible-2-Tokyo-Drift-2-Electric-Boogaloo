@@ -3,7 +3,7 @@ from os import urandom
 from flask import Flask, render_template, request, session, redirect, url_for, flash
 import hashlib
 
-from util.db_utils import create_user, login_user
+from util.db_utils import create_user, login_user, get_user
 import util.match as match
 app = Flask(__name__)
 app.secret_key = urandom(32)
@@ -17,7 +17,7 @@ IEX_ENDER = "batch?types=quote,news,chart&range=1m&last=10"
 #API for Random Dog Images
 DOG_STUB = "https://dog.ceo/api/breeds/image/random"
 
-@app.route("/index", methods=["GET"])
+@app.route("/", methods=["GET"])
 def home():
     return render_template("home.html", current_user = session.get("user"))
 
@@ -76,7 +76,7 @@ def profile(username):
 def stockData():
     return redirect(url_for("stock"))
 
-@app.route("/battle")
+@app.route("/battle/<matchid>")
 def battleData():
     return render_template("battle.html")
 
@@ -84,12 +84,19 @@ def battleData():
 def userData():
     return redirect(url_for("userinf"))
 
-@app.route("/search")
+@app.route("/find")
 def findm():
-    pass
-@app.route("/searchv/<username>")
+    try:
+        match.add_user(get_user(session.get("user"))[2])
+        return render_template("find.html")
+    except TypeError:
+        flash("not logged in")
+        return redirect("/")
+@app.route("/findv/<username>")
 def findv():
-    pass
+    a=match.rdy_chk(username)
+    return "false" if a==0 else "/battle/"+str(a)
+
 #@app.route("/thing")
 #def game():
 #    return render_template("test.html")
