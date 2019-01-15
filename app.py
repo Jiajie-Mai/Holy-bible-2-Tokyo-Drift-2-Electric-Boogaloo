@@ -1,10 +1,10 @@
-from flask import Flask, render_template, request, session, redirect, url_for, flash
-from util.db_utils import create_user, login_user
 from os import urandom
+
+from flask import Flask, render_template, request, session, redirect, url_for, flash
 import hashlib
 
-from test import *
-
+from util.db_utils import create_user, login_user
+import util.match as match
 app = Flask(__name__)
 app.secret_key = urandom(32)
 
@@ -86,10 +86,10 @@ def userData():
 
 @app.route("/search")
 def findm():
-    
+    pass
 @app.route("/searchv/<username>")
 def findv():
-
+    pass
 #@app.route("/thing")
 #def game():
 #    return render_template("test.html")
@@ -104,5 +104,6 @@ def findv():
 #    return str(getval())
 
 if __name__ == "__main__":
+    match.reset()
     app.debug = True
     app.run()

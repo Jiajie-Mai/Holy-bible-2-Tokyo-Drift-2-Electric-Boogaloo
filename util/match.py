@@ -12,10 +12,9 @@ def reset():
 def add_user(uid):
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()
-    c.execute("SELECT * FROM a WHERE a.u2 == 0;")
-    a = c.fetchall()
+    a = c.execute("SELECT * FROM a WHERE a.u2 == 0;").fetchall()
     print(a)
-    if len(a)>0:
+    if len(a)>0: # if other players are waiting for someone to join a match, join their match, else create a row indicating waiting for match.
         c.execute("UPDATE a SET u2 = ? WHERE a.matchid == ?;",(uid,a[0][0]))
     else:
         q=c.execute("SELECT count(*) FROM a;").fetchall()
@@ -29,10 +28,16 @@ def rdy_chk(uid):
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()
     b = c.execute("SELECT * FROM a WHERE a.u1 == ? OR a.u2 == ?;",(uid,uid)).fetchall();
-    return len(b)>0 and b[0][1]>0 and b[0][2]>0
+    db.close()
+    return b[0][0] if len(b)>0 and b[0][1]>0 and b[0][2]>0 else 0
 
-
-
+def nd_match(mid):
+    db = sqlite3.connect(DB_FILE)
+    c = db.cursor()
+    c.execute("DELETE FROM a WHERE a.matchid == ?;",(mid,))
+    db.commit()
+    db.close()
+    
 if __name__ == "__main__":
     reset()
     add_user(766)
@@ -42,3 +47,5 @@ if __name__ == "__main__":
     add_user(5)
     print(rdy_chk(5))
     print(rdy_chk(123))
+    nd_match(1)
+    nd_match(404)
