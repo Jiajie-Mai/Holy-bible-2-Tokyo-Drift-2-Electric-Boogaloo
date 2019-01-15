@@ -1,5 +1,5 @@
 body {
-    background-color: white;
+    background-image: url("DoggoBackground.jpg");
     color: black;
 }
 ul {
@@ -20,5 +20,6 @@ li a {
   text-decoration: none;
 }
 div.centerbody{
+    color: white;
     text-align:center;
 }
