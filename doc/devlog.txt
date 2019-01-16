@@ -87,7 +87,7 @@ wk changes, and chart data.
 ==============================================================
 Jiajie Mai -- 2019-01-13 10:18
 --------------------------------------------------------------
-Worked on the CSS 
+Worked on the CSS
 Worked on the README.md
 ==============================================================
 Theodore Peeters -- 2019-01-15 11:09
@@ -95,4 +95,9 @@ Theodore Peeters -- 2019-01-15 11:09
 actuallly remembered to commit this time pretty epic
 uhh match making (ok so basically)
 & made web page for finding match...
+==============================================================
+Ryan Aday -- 2019-01-16 10:52
+--------------------------------------------------------------
+Fixed the gameData database data retrieval for accounts for money,
+added link to base for the Find battle page
 ==============================================================

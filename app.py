@@ -72,19 +72,9 @@ def profile(username):
     '''Homepage if logged in to specific account'''
     return render_template("userinf.html", user = username, current_user = session.get("user"), money=get_dogbloons(get_userId(session.get("user"))))
 
-@app.route("/test", methods = ["GET"])
-def test():
-    '''Homepage if logged in to specific account'''
-    print(get_userId(session.get("user")))
-    return get_dogbloons(get_userId(session.get("user")))
-
 @app.route("/stock")
 def stockData():
     return redirect(url_for("stock"))
-
-@app.route("/userinf")
-def userData():
-    return render_template("userinf.html", money=get_dogbloons(get_userId(session.get("user"))))
 
 @app.route("/find")
 def find():
