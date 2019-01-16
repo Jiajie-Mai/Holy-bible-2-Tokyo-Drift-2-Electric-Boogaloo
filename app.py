@@ -76,7 +76,7 @@ def profile(username):
 def stockData():
     return redirect(url_for("stock"))
 
-@app.route("/battle/<matchid>")
+@app.route("/battle")
 def battleData():
     return render_template("battle.html")
 
@@ -92,11 +92,12 @@ def findm():
     except TypeError:
         flash("not logged in")
         return redirect("/")
-@app.route("/findv/<username>")
+@app.route("/findv")
 def findv():
-    a=match.rdy_chk(username)
-    return "false" if a==0 else "/battle/"+str(a)
-
+    try:
+        return "true" if match.rdy_chk(get_user(session.get("user"))[2]) else "false"
+    except TypeError:
+        return "false"
 #@app.route("/thing")
 #def game():
 #    return render_template("test.html")

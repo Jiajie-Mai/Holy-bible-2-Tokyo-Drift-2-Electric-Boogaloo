@@ -12,24 +12,25 @@ def reset():
 def add_user(uid):
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()
-    a = c.execute("SELECT * FROM a WHERE a.u2 == 0;").fetchall()
-    print(a)
-    if len(a)>0: # if other players are waiting for someone to join a match, join their match, else create a row indicating waiting for match.
-        c.execute("UPDATE a SET u2 = ? WHERE a.matchid == ?;",(uid,a[0][0]))
-    else:
-        q=c.execute("SELECT count(*) FROM a;").fetchall()
-        print(q)
-        c.execute("INSERT INTO a VALUES (?, ?, 0);",(q[0][0]+1,uid))
-        a=c.execute("SELECT * FROM a WHERE a.matchid == ?;",(q[0][0]+1,)).fetchall()
-    db.commit()
-    db.close()
-
+    if(c.execute("SELECT count(*) FROM a WHERE a.u2 == ? OR a.u1 == ?;",(uid,uid)).fetchall()[0][0]==0):
+        a = c.execute("SELECT * FROM a WHERE a.u2 == 0;").fetchall()
+        print(a)
+        if len(a)>0: # if other players are waiting for someone to join a match, join their match, else create a row indicating waiting for match.
+            c.execute("UPDATE a SET u2 = ? WHERE a.matchid == ?;",(uid,a[0][0]))
+        else:
+            q=c.execute("SELECT count(*) FROM a;").fetchall()
+            print(q)
+            c.execute("INSERT INTO a VALUES (?, ?, 0);",(q[0][0]+1,uid))
+        db.commit()
+        db.close()
 def rdy_chk(uid):
+    print(uid)
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()
     b = c.execute("SELECT * FROM a WHERE a.u1 == ? OR a.u2 == ?;",(uid,uid)).fetchall();
+    print(b)
     db.close()
-    return b[0][0] if len(b)>0 and b[0][1]>0 and b[0][2]>0 else 0
+    return len(b)>0 and b[0][1]>0 and b[0][2]>0
 
 def nd_match(mid):
     db = sqlite3.connect(DB_FILE)

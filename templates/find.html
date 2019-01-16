@@ -2,9 +2,11 @@
 <html>
   <head>
 	<title>Finding Match...</title>
-	<script src="{{ url_for('static',filename='find.js') }}"></script>
+	<script src="{{ url_for('static',filename='find.js') }}">
+	</script>
   </head>
   <body>
-	<div id="dotdotdiv">Finding Match</div>
+	<img src="{{ url_for('static',filename='match.png') }}"/>
+	<strong id="dotdotdiv" style="text-align:center;">Finding Match</strong>
   </body>
 </html>

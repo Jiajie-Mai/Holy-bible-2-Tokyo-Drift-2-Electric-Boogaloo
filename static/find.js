@@ -5,5 +5,14 @@ document.addEventListener("DOMContentLoaded", ()=>{
 	setInterval( ()=>{
 		a=(a+1)%4;
 		dotdotdiv.innerHTML="Finding Match" + "...".substring(0,a);
-	},10);
+		
+		var r=new XMLHttpRequest();
+		r.addEventListener("load", ()=>{
+			console.log(r);
+			if(r.responseText==="true")
+				document.location="/battle";
+		});
+		r.open("GET","/findv");
+		r.send(null);
+	},1000);
 });
