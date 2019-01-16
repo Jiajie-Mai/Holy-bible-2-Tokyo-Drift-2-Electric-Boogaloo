@@ -59,6 +59,28 @@ def login_user(username, password):
     db.close()
     return True
 
+def change_pass(oldpass, newpass, confpass, username):
+    db = sqlite3.connect(DB_FILE)
+    c = db.cursor()
+    user = get_user(username)
+    if oldpass != get_pass(user):
+        flash("Old password isn't correct")
+        db.close()
+        return None
+    elif len(newpass) < 5:
+        flash("New password must be at least 5 characters")
+        db.close()
+        return None
+    elif newpass == confpass:
+        flash("Confirmation fail")
+        db.close()
+        return None
+    ''' Set current session user '''
+    c.execute("SELECT REPLACE (get_pass(user), get_pass(user), newpass);")
+    db.commit()
+    db.close()
+    return True
+
 def get_user(username):
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()
@@ -66,6 +88,14 @@ def get_user(username):
     db.close()
     print(user)
     return user
+
+def get_pass(username):
+    db = sqlite3.connect(DB_FILE)
+    c = db.cursor()
+    user = get_user(username)
+    userId = c.execute("SELECT password FROM users WHERE users.username == ?;" , (username,)).fetchall()
+    db.close()
+    return userId[0][0]
 
 def get_userId(username):
     db = sqlite3.connect(DB_FILE)
