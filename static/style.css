@@ -1,6 +1,6 @@
 body {
-    background-image: url("DoggoBackground.jpg");
-    color: black;
+    background: url("DoggoBackground.jpg");
+    color: white;
 }
 ul {
   list-style-type: none;
@@ -24,7 +24,7 @@ div.centerbody{
     text-align:center;
 }
 .footer{
-	color: white;
-	position: absolute;
-	bottom: 0;
+    color: white;
+    position: absolute;
+    bottom: 0;
 }
