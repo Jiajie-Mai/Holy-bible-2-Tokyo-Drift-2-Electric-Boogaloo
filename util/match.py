@@ -5,7 +5,7 @@ def reset():
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()
     c.execute("DROP TABLE IF EXISTS a;")
-    c.execute("CREATE TABLE a (matchid INTEGER PRIMARY KEY, u1 INTEGER, u2 INTEGER, dosh1 INTEGER, dosh2 INTEGER, choice1 INTEGER, choice2 INTEGER);")
+    c.execute("CREATE TABLE a (matchid INTEGER PRIMARY KEY, u1 INTEGER, u2 INTEGER, dosh1 INTEGER, dosh2 INTEGER, choice1 INTEGER, choice2 INTEGER, round INTEGER);")
     db.commit()
     db.close()
 

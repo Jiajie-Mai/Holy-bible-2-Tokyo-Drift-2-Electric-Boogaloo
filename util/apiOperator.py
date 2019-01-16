@@ -22,8 +22,9 @@ def apiRetrieve(URL_STUB, URL_other):
     return d
 
 def randSymbols(n):
+    '''returns a generator of n distinct random stock symbols, their names, and % change in price'''
     d = apiRetrieve(IEX_STUB, IEX_SYMBOLS)
-    return ((i["symbol"],i["name"]) for i in sample(d,n))
+    return ((i["symbol"],i["name"],priceChange(i["symbol"])) for i in sample(d,n))
 
 def priceChange(sym):
     s = apiRetrieve(IEX_STUB + "stock/", sym + IEX_ENDER)
