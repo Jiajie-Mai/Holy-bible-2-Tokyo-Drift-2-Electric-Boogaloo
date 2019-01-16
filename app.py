@@ -76,28 +76,30 @@ def profile(username):
 def stockData():
     return redirect(url_for("stock"))
 
-@app.route("/battle")
-def battleData():
-    return render_template("battle.html")
-
 @app.route("/userinf")
 def userData():
     return render_template("userinf.html", money=get_dogbloons(get_userId(session.get("user"))))
 
 @app.route("/find")
-def findm():
+def find():
     try:
-        match.add_user(get_user(session.get("user"))[2])
+        match.add_user(get_userId(session.get("user")))
         return render_template("find.html")
     except TypeError:
         flash("not logged in")
         return redirect("/")
+
 @app.route("/findv")
 def findv():
     try:
-        return "true" if match.rdy_chk(get_user(session.get("user"))[2]) else "false"
+        return "true" if match.rdy_chk(get_userId(session.get("user"))) else "false"
     except TypeError:
         return "false"
+
+@app.route("/battle")
+def battle():
+    return render_template("battle.html")
+
 #@app.route("/thing")
 #def game():
 #    return render_template("test.html")

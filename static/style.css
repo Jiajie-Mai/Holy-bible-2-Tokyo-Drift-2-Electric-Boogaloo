@@ -23,3 +23,8 @@ div.centerbody{
     color: white;
     text-align:center;
 }
+.footer{
+	color: white;
+	position: absolute;
+	bottom: 0;
+}
