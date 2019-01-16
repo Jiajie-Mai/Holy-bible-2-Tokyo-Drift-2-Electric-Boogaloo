@@ -81,7 +81,7 @@ def find():
     try:
         match.add_user(get_userId(session.get("user")))
         return render_template("find.html")
-    except TypeError:
+    except IndexError:
         flash("not logged in")
         return redirect("/")
 
@@ -89,7 +89,7 @@ def find():
 def findv():
     try:
         return "true" if match.rdy_chk(get_userId(session.get("user"))) else "false"
-    except TypeError:
+    except IndexError:
         return "false"
 
 @app.route("/battle")

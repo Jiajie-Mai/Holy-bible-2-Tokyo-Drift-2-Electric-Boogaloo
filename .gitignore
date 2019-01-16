@@ -4,3 +4,5 @@
 __pycache__/
 *.key
 keys.json
+multi.db
+battlestalks.db
