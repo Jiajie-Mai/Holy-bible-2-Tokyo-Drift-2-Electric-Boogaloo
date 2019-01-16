@@ -3,7 +3,7 @@ from os import urandom
 from flask import Flask, render_template, request, session, redirect, url_for, flash
 import hashlib
 
-from util.db_utils import create_user, login_user, get_user
+from util.db_utils import create_user, login_user, get_user, get_dogbloons, get_userId
 import util.match as match
 app = Flask(__name__)
 app.secret_key = urandom(32)
@@ -70,7 +70,13 @@ def logout():
 @app.route("/u/<username>", methods = ["GET"])
 def profile(username):
     '''Homepage if logged in to specific account'''
-    return render_template("userinf.html", user = username, current_user = session.get("user"))
+    return render_template("userinf.html", user = username, current_user = session.get("user"), money=get_dogbloons(get_userId(session.get("user"))))
+
+@app.route("/test", methods = ["GET"])
+def test():
+    '''Homepage if logged in to specific account'''
+    print(get_userId(session.get("user")))
+    return get_dogbloons(get_userId(session.get("user")))
 
 @app.route("/stock")
 def stockData():
