@@ -16,12 +16,14 @@
         {% if current_user %}
         <li><a href = "{{ url_for('profile', username = current_user) }}">Profile</a></li>
         <li><a href = "{{ url_for('logout') }}">Logout</a></li>
+        <li><a href = "{{ url_for('findm') }}">Lets Battle!</a></li>
+
         {% else %}
         <li><a href = "{{ url_for('login') }}">Login</a></li>
         <li><a href = "{{ url_for('signup') }}">Signup</a></li>
         {% endif %}
       </ul>
-	    
+
 
         {% block content %} {% endblock %}
         <br></br>
