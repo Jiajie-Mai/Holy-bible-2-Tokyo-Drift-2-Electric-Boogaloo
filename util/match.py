@@ -20,7 +20,7 @@ def add_user(uid):
         else:
             q=c.execute("SELECT count(*) FROM a;").fetchall()
             print(q)
-            c.execute("INSERT INTO a VALUES (matchid = ?, u1 = ?, u2 = 0);",(q[0][0]+1,uid))
+            c.execute("INSERT INTO a (matchid, u1, u2) VALUES (?, ?, 0);",(q[0][0]+1,uid))
         db.commit()
         db.close()
 
