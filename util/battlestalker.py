@@ -3,30 +3,43 @@ import sqlite3
 from apiOperator import *
 
 DB_FILE = "battlestalks.db"
-STOCK_NUM = 5
 
 
 def reset():
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()
     c.execute("DROP TABLE IF EXISTS s;")
-    c.execute("CREATE TABLE s (matchid INTEGER, symbol TEXT, name TEXT, change INTEGER);")
+    c.execute("CREATE TABLE s (stockno INTEGER, matchid INTEGER, symbol TEXT, name TEXT, change INTEGER);")
     db.commit()
     db.close()
 
-def add_stocks(mid):
+def add_stocks(mid, n):
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()
-    stocks = randSymbols(STOCK_NUM)
-    for i in stocks:
+    stocks = randSymbols(n)
+    for (i,s) in enumerate(stocks, start=1): # i know, it's awful, but 0 == -0 so i have no choice :(
         print((mid, *i))
-        c.execute("INSERT INTO s VALUES(?, ?, ?, ?);", (mid, *i))
+        c.execute("INSERT INTO s VALUES(?, ?, ?, ?, ?);", (i, mid, *s))
     db.commit()
     db.close()
 
-def rm_stocks(mid):
-    c.execute("DELETE FROM s WHERE s.matchid == ?;",(mid,))
+def inf_stock(mid, stockno):
+    db = sqlite3.connect(DB_FILE)
+    c = db.cursor()
+    if stockno == 0:
+        b=c.execute("SELECT * FROM s WHERE s.matchid == ?;", (mid,)).fetchone()
+    else:
+        b=c.execute("SELECT * FROM s WHERE s.matchid==? AND s.stockno==?;",(mid,abs(stockno))).fetchone()
+    db.close()
+    return b
 
+def rm_stocks(mid):
+    db = sqlite3.connect(DB_FILE)
+    c = db.cursor()
+    c.execute("DELETE FROM s WHERE s.matchid == ?;",(mid,))
+    db.commit()
+    db.close()
+    
 if __name__ == "__main__":
     reset()
     add_stocks(3)
