@@ -95,7 +95,7 @@ def get_pass(username):
     user = get_user(username)
     userId = c.execute("SELECT password FROM users WHERE users.username == ?;" , (username,)).fetchall()
     db.close()
-    return userId[0][0]
+    return userId[0][0] if len(userId) > 0 else None
 
 def get_userId(username):
     db = sqlite3.connect(DB_FILE)
@@ -103,11 +103,18 @@ def get_userId(username):
     user = get_user(username)
     userId = c.execute("SELECT id FROM users WHERE users.username == ?;" , (username,)).fetchall()
     db.close()
-    return userId[0][0]
+    return userId[0][0] if len(userId) > 0 else None
 
 def get_dogbloons(userId):
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()
     dogbloons = c.execute("SELECT money FROM gameData WHERE gameData.id == ?;" , (userId,)).fetchall()
     db.close()
-    return dogbloons[0][0]
+    return dogbloons[0][0] if len(dogbloons) > 0 else None
+
+def get_username(userId):
+    db = sqlite3.connect(DB_FILE)
+    c = db.cursor()
+    u = c.execute("SELECT username FROM users WHERE users.id == ?;", (userId,)).fetchone()
+    db.close()
+    return None if u == None else u[0]
