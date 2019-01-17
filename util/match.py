@@ -26,7 +26,6 @@ def add_user(uid):
         return False
     if c.execute("SELECT count(*) FROM a WHERE a.u2 == ? OR a.u1 == ?;",(uid,uid)).fetchall()[0][0]==0:
         a = c.execute("SELECT * FROM a WHERE a.u2 == 0;").fetchall()
-        print(a)
         if len(a)>0: # if other players are waiting for someone to join a match, join their match, else create a row indicating waiting for match.
             c.execute("UPDATE a SET u2 = ? WHERE a.matchid == ?;",(uid,a[0][0]))
             db.commit()
@@ -99,7 +98,6 @@ def init_match(uid):
         add_stocks(i[0],STOCK_NUM)
     db.commit()
     db.close()
-    print("initialized ",uid," : ",match_info(uid))
     
 def move(uid, mv):
     i = match_info(uid)
@@ -123,7 +121,6 @@ def nxt_round(mid):
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()
     b = c.execute("SELECT * FROM a WHERE a.matchid == ?;",(mid,)).fetchone();
-    print(b)
     if b != None and b[5] != None and b[6] != None:
         if b[5] != 0:
             s1 = inf_stock(mid, b[5])

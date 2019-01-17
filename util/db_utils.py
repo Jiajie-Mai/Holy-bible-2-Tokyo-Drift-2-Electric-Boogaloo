@@ -88,7 +88,6 @@ def get_user(username):
     c = db.cursor()
     user = c.execute("SELECT * FROM users WHERE users.username == ?;" , (username,)).fetchone()
     db.close()
-    print(user)
     return user
 
 def get_pass(username):

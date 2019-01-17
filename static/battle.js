@@ -27,7 +27,7 @@ document.addEventListener("DOMContentLoaded", () => {
 		});
 		req.open("GET","/minf");
 		req.send(null);
-	},1000);
+	},2000);
 	var move = (i)=>{
 		console.log(i)
 		var req = new XMLHttpRequest();
