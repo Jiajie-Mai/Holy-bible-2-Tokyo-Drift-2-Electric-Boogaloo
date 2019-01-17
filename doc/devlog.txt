@@ -104,4 +104,5 @@ added link to base for the Find battle page
 Theodore Peeters -- 2019-01-15 23:34
 --------------------------------------------------------------
 battle system
+and dog api
 ==============================================================

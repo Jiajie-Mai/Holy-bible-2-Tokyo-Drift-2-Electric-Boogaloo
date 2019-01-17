@@ -5,6 +5,7 @@ import hashlib
 
 from util.db_utils import create_user, login_user, get_user, get_dogbloons, get_userId, change_pass, get_pass
 import util.match as match
+from util.apiOperator import doggyPicture
 
 app = Flask(__name__)
 app.secret_key = urandom(32)
@@ -101,7 +102,7 @@ def findv():
 def battle():
     if session.get("user") == None:
         return redirect("/")
-    return render_template("battle.html")
+    return render_template("battle.html", doggo1 = doggyPicture(), doggo2 = doggyPicture())
 
 @app.route("/minf")
 def minf():

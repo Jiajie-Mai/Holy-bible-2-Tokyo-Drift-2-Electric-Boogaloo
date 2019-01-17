@@ -32,7 +32,7 @@ def create_user(username, password):
         return False
     hash_obj = hashlib.md5(password)
     hashpass = hash_obj.hexdigest()
-    id_generator = c.execute("SELECT count(*) FROM users;").fetchall()[0][0]
+    id_generator = c.execute("SELECT count(*) FROM users;").fetchall()[0][0] + 1
     ''' If username and password meet length specifications, add name and pass combo to table '''
     c.execute("INSERT INTO users VALUES (?, ?, ?);", (username, hashpass, id_generator))
     c.execute("INSERT INTO gameData VALUES (?, ?, ?);", (id_generator, 10000, ""))

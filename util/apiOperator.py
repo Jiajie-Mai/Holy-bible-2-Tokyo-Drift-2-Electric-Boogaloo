@@ -2,6 +2,8 @@ import json
 from urllib import request
 from random import sample
 
+from flask import url_for
+
 #API for IEX Trading
 #you need to get the stock and place it btwn stub and ender
 IEXTRADING_TEST = "https://api.iextrading.com/1.0/stock/aapl/batch?types=quote,news,chart&range=1m&last=10"
@@ -13,7 +15,7 @@ IEX_SYMBOLS = "ref-data/symbols"
 DOG_STUB = "https://dog.ceo/api/breeds/image/random"
 
 # get json from api
-def apiRetrieve(URL_STUB, URL_other):
+def apiRetrieve(URL_STUB, URL_other = ""):
     '''general api retrieval function'''
     URL=URL_STUB+URL_other
     response = request.urlopen(URL)
@@ -28,9 +30,17 @@ def randSymbols(n):
 
 def priceChange(sym):
     s = apiRetrieve(IEX_STUB + "stock/", sym + IEX_ENDER)
-    return float(s["quote"]["changePercent"])
+    return float(s["quote"]["changePercent"])*5 # multiplier makes number bigger, more epic
 
+def doggyPicture():
+    d = apiRetrieve(DOG_STUB)
+    if d!=None and d["status"] == "success":
+        return d["message"]
+    else:
+        return url_for("static", filename="match.png")
+    
 if __name__ == "__main__":
     for j in randSymbols(5):
         print(j)
         print(priceChange(j[0]))
+
