@@ -28,7 +28,7 @@ def randSymbols(n):
 
 def priceChange(sym):
     s = apiRetrieve(IEX_STUB + "stock/", sym + IEX_ENDER)
-    return float(s["quote"]["changePercent"])*100
+    return float(s["quote"]["changePercent"])
 
 if __name__ == "__main__":
     for j in randSymbols(5):

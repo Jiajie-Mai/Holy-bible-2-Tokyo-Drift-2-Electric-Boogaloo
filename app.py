@@ -112,7 +112,6 @@ def minf():
 
 @app.route("/mv", methods=["GET"])
 def mv():
-    print(request.args,"            @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
     mv = request.args.get("dir")
     try:
         match.move(get_userId(session.get("user")), mv if mv != None else 0)
@@ -120,19 +119,18 @@ def mv():
     except IndexError:
         return "?"
 
-#@app.route("/thing")
-#def game():
-#    return render_template("test.html")
-#
-#@app.route("/inc")
-#def game1():
-#    increment()
-#    return str(getval())
-#
-#@app.route("/val")
-#def game2():
-#    return str(getval())
-
+@app.route("/win")
+def v():
+    flash("You dogged persistence carried you to victory.")
+    return redirect("/")
+@app.route("/loss")
+def l():
+    flash("Sadly, a defeat. Maybe not every dog has their day.")
+    return redirect("/")
+@app.route("/tie")
+def t():
+    flash("A tie! And it was so doggone close!")
+    return redirect("/")
 if __name__ == "__main__":
     match.reset()
     

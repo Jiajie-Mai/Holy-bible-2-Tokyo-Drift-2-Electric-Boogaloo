@@ -101,3 +101,7 @@ Ryan Aday -- 2019-01-16 10:52
 Fixed the gameData database data retrieval for accounts for money,
 added link to base for the Find battle page
 ==============================================================
+Theodore Peeters -- 2019-01-15 23:34
+--------------------------------------------------------------
+battle system
+==============================================================

@@ -3,12 +3,12 @@ import json
 
 
 from util.battlestalker import *
-from util.db_utils import get_username
+from util.db_utils import get_username, d_dogbloon
 
 
 DB_FILE = "multi.db"
 MAX_ROUNDS = 5
-START_DOSH = 1000
+START_DOSH = 100000
 STOCK_NUM = 5
 def reset():
     s_reset()
@@ -102,7 +102,6 @@ def init_match(uid):
     print("initialized ",uid," : ",match_info(uid))
     
 def move(uid, mv):
-    print("@@@ player tried to move w/ ",mv)
     i = match_info(uid)
     if i != None and i[7]>0 and -1*STOCK_NUM <= int(mv) <= 1*STOCK_NUM: # - short + buy |mv| stockno, 0 do nothing
         db = sqlite3.connect(DB_FILE)
@@ -128,19 +127,38 @@ def nxt_round(mid):
     if b != None and b[5] != None and b[6] != None:
         if b[5] != 0:
             s1 = inf_stock(mid, b[5])
-            d1 = b[3] + b[3]*s1[4]*(1 if b[5]>0 else -1)
+            d1 = int(b[3] + b[3]*s1[4]*(1 if b[5]>0 else -1))
             print(d1)
             c.execute("UPDATE a SET dosh1 = ? WHERE a.matchid == ?;",(d1, mid))
         if b[6] != 0:
             s2 = inf_stock(mid, b[6])
-            d2 = b[4] + b[4]*s2[4]*(1 if b[6]>0 else -1)
+            d2 = int(b[4] + b[4]*s2[4]*(1 if b[6]>0 else -1))
             print(d2)
             c.execute("UPDATE a SET dosh2 = ? WHERE a.matchid == ?;",(d2, mid))
+        if d2 <= 0 or d1 <= 0:
+            b[7] = 1
         c.execute("UPDATE a SET round = ?, choice1 = ?, choice2 = ?;",(b[7] - 1, None, None))
         db.commit()
         db.close()
-        rm_stocks(mid)
-        add_stocks(mid,STOCK_NUM)
+        if b[7] > 1:
+            rm_stocks(mid)
+            add_stocks(mid,STOCK_NUM)
+        else:
+            distr_winnings(mid)
+            
+def distr_winnings(mid):
+    db = sqlite3.connect(DB_FILE)
+    c = db.cursor()  
+    b = c.execute("SELECT * FROM a WHERE a.matchid == ?;",(mid,)).fetchone();
+    if b != None and b[7] == 0:
+        if b[3] > b[4]:
+            d_dogbloon(b[1], START_DOSH / 100)
+            d_dogbloon(b[2], START_DOSH / 100 * -1)
+        elif b[4] > b[3]:
+            d_dogbloon(b[1], START_DOSH / 100 * -1)
+            d_dogbloon(b[2], START_DOSH / 100)
+    db.commit()
+    db.close()
 
 def match_info_json(uid): # returns all relavent info about match as json -- match id, players, money, round, stocks (not price change ofc).
     b = match_info(uid)
@@ -148,9 +166,9 @@ def match_info_json(uid): # returns all relavent info about match as json -- mat
         s = inf_stock(b[0],0)
         if len(s) > 0:
             if uid == b[1]:
-                d = {"p":get_username(b[1]), "pdosh":b[3], "e":get_username(b[2]), "edosh":b[4], "round":b[7], "stocks":[(i[2],i[3]) for i in s]}
+                d = {"p":get_username(b[1]), "pdosh":int(b[3]), "e":get_username(b[2]), "edosh":int(b[4]), "round":b[7], "stocks":[(i[2],i[3]) for i in s]}
             else:
-                d = {"p":get_username(b[2]), "pdosh":b[4], "e":get_username(b[1]), "edosh":b[3], "round":b[7], "stocks":[(i[2],i[3]) for i in s]}
+                d = {"p":get_username(b[2]), "pdosh":int(b[4]), "e":get_username(b[1]), "edosh":int(b[3]), "round":b[7], "stocks":[(i[2],i[3]) for i in s]}
             return json.dumps(d)
 
 if __name__ == "__main__": # unit testing

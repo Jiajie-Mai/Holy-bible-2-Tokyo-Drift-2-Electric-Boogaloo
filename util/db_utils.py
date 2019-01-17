@@ -112,6 +112,14 @@ def get_dogbloons(userId):
     db.close()
     return dogbloons[0][0]
 
+def d_dogbloon(userId, d):
+    cur = get_dogbloons(userId)
+    db = sqlite3.connect(DB_FILE)
+    c = db.cursor()
+    c.execute("UPDATE gameData SET money = ? WHERE gameData.id == ?;",(cur + d,userId))
+    db.commit()
+    db.close()
+
 def get_username(userId):
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()

@@ -5,16 +5,23 @@ document.addEventListener("DOMContentLoaded", () => {
 		var req=new XMLHttpRequest();
 		req.addEventListener("load", ()=>{
 			if(req.responseText != "None"){
-				console.log(req.responseText);
 				var d = JSON.parse(req.responseText);
+				if(d.round == 0){
+					if(d.pdosh > d.edosh)
+						document.location = "/win";
+					else if (d.pdosh < d.edosh)
+						document.location = "/loss";
+					else
+						document.location = "/tie";
+				}
 				for(var i=0;i<5;i++){
 					syms[i].innerHTML = d.stocks[i][0];
 					nams[i].innerHTML = d.stocks[i][1].length < 30 ? d.stocks[i][1] : d.stocks[i][1].substr(0,27) + "...";
 				}
 				p.innerHTML = d.p;
-				pdosh.innerHTML = d.pdosh;
+				pdosh.innerHTML = parseInt(d.pdosh)/100;
 				e.innerHTML = d.e;
-				edosh.innerHTML = d.edosh;
+				edosh.innerHTML = parseInt(d.edosh)/100;
 				round.innerHTML = d.round;
 			}
 		});
