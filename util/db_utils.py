@@ -60,21 +60,25 @@ def login_user(username, password):
     return True
 
 def hash(obj):
-    hash_obj = hashlib.md5(obj.encode('utf-8'))
+    hash_obj = hashlib.md5(obj)
     hashpass = hash_obj.hexdigest()
     return hashpass
 
-def change_pass(newpass, confpass, username):
+def change_pass(oldpass, newpass, confpass, username):
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()
-    if len(newpass) < 5:
+    if hash(oldpass) != get_pass(username):
+        flash("Old password incorrect")
+        return False
+    elif len(newpass) < 5:
         flash("New password must be at least 5 characters")
         return False
-    elif newpass == confpass:
+    elif newpass != confpass:
         flash("Confirmation fail")
         return False
     ''' Set current session user '''
-    c.execute("UPDATE users SET password = ? WHERE users.username == ?;",(hash(newpass),username))
+
+    c.execute("UPDATE users SET password = ? WHERE users.id == ?;",(hash(newpass), get_userId(username)))
     db.commit()
     db.close()
     return True

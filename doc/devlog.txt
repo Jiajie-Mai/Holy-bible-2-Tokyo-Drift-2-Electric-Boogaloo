@@ -106,3 +106,8 @@ Theodore Peeters -- 2019-01-15 23:34
 battle system
 and dog api
 ==============================================================
+Ryan Aday -- 2019-01-17 10:44
+--------------------------------------------------------------
+Added change password system.
+No issues with images poping p in background.
+==============================================================
