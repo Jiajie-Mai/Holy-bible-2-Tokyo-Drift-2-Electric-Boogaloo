@@ -126,10 +126,12 @@ def nxt_round(mid):
         if b[5] != 0:
             s1 = inf_stock(mid, b[5])
             d1 = b[3] + b[3]*s1[4]*(1 if b[5]>0 else -1)
+            print(d1)
             c.execute("UPDATE a SET dosh1 = ? WHERE a.matchid == ?;",(d1, mid))
         if b[6] != 0:
             s2 = inf_stock(mid, b[6])
             d2 = b[4] + b[4]*s2[4]*(1 if b[6]>0 else -1)
+            print(d2)
             c.execute("UPDATE a SET dosh2 = ? WHERE a.matchid == ?;",(d2, mid))
         c.execute("UPDATE a SET round = ?, choice1 = ?, choice2 = ?;",(b[7] - 1, None, None))
         db.commit()
