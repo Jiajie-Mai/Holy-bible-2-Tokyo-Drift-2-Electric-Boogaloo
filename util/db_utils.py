@@ -35,7 +35,7 @@ def create_user(username, password):
     id_generator = c.execute("SELECT count(*) FROM users;").fetchall()[0][0] + 1
     ''' If username and password meet length specifications, add name and pass combo to table '''
     c.execute("INSERT INTO users VALUES (?, ?, ?);", (username, hashpass, id_generator))
-    c.execute("INSERT INTO gameData VALUES (?, ?, ?);", (id_generator, 10000, ""))
+    c.execute("INSERT INTO gameData VALUES (?, ?, ?);", (id_generator, 1000, ""))
     db.commit()
     db.close()
     return True
@@ -59,24 +59,22 @@ def login_user(username, password):
     db.close()
     return True
 
-def change_pass(oldpass, newpass, confpass, username):
+def hash(obj):
+    hash_obj = hashlib.md5(obj.encode('utf-8'))
+    hashpass = hash_obj.hexdigest()
+    return hashpass
+
+def change_pass(newpass, confpass, username):
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()
-    user = get_user(username)
-    if oldpass != get_pass(user):
-        flash("Old password isn't correct")
-        db.close()
-        return None
-    elif len(newpass) < 5:
+    if len(newpass) < 5:
         flash("New password must be at least 5 characters")
-        db.close()
-        return None
+        return False
     elif newpass == confpass:
         flash("Confirmation fail")
-        db.close()
-        return None
+        return False
     ''' Set current session user '''
-    c.execute("SELECT REPLACE (get_pass(user), get_pass(user), newpass);")
+    c.execute("UPDATE users SET password = ? WHERE users.username == ?;",(hash(newpass),username))
     db.commit()
     db.close()
     return True
@@ -93,9 +91,9 @@ def get_pass(username):
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()
     user = get_user(username)
-    userId = c.execute("SELECT password FROM users WHERE users.username == ?;" , (username,)).fetchall()
+    password = c.execute("SELECT password FROM users WHERE users.username == ?;" , (username,)).fetchall()
     db.close()
-    return userId[0][0]
+    return password[0][0]
 
 def get_userId(username):
     db = sqlite3.connect(DB_FILE)

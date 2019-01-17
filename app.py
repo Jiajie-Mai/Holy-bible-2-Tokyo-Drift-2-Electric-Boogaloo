@@ -67,16 +67,17 @@ def profile(username):
         return render_template("userinf.html", user = username, current_user = session.get("user"), money=get_dogbloons(get_userId(session.get("user"))))
     except IndexError:
         return redirect("/")
-    
+
 @app.route("/change_password", methods = ["GET", "POST"])
 def change_password():
-    oldpass = request.form.get("oldpass")
+    if request.method == "GET":
+        return render_template("change_password.html", title = "Sign Up", current_user = session.get("user"))
     newpass = request.form.get("newpass")
     confpass = request.form.get("confpass")
-    conf = change_pass(oldpass, newpass, confpass, session.get("user"))
+    conf = change_pass(newpass, confpass, session.get("user"))
     '''If login fail, redir to login page, otherwise send user to homepage'''
-    if conf == None:
-        return render_template("change_password.html", title = "Change Your Password" )
+    if conf:
+        return render_template("change_password.html", title = "Change Your Password", current_user =session.get("user"))
     return redirect(url_for("home"))
 
 @app.route("/stock")
@@ -134,6 +135,6 @@ def t():
     return redirect("/")
 if __name__ == "__main__":
     match.reset()
-    
+
     app.debug = True
     app.run()
