@@ -112,6 +112,7 @@ def minf():
 
 @app.route("/mv", methods=["GET"])
 def mv():
+    print(request.args,"            @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
     mv = request.args.get("dir")
     try:
         match.move(get_userId(session.get("user")), mv if mv != None else 0)

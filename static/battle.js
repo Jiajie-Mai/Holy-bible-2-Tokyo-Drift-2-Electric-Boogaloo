@@ -1,3 +1,4 @@
+
 console.log("battle.js loaded");
 document.addEventListener("DOMContentLoaded", () => {
 	setInterval( ()=>{
@@ -21,9 +22,10 @@ document.addEventListener("DOMContentLoaded", () => {
 		req.send(null);
 	},1000);
 	var move = (i)=>{
+		console.log(i)
 		var req = new XMLHttpRequest();
-		req.open("GET","/mv");
-		req.send("dir="+i); // 0 - do NOTHIGN + number is buy that stock number - number shorts
+		req.open("GET","/mv?dir="+i);
+		req.send(null); // 0 - do NOTHIGN + number is buy that stock number - number shorts
 	}; // anything else is just considered a zero
 	var e = document.getElementById("e");
     var edosh = document.getElementById("edosh");
@@ -32,7 +34,8 @@ document.addEventListener("DOMContentLoaded", () => {
 	var p = document.getElementById("p");
     var pdosh = document.getElementById("pdosh");
 	var syms = [], nams = [];
-	for(var i=1;i<=5;i++){
+	for(let j=1;j<=5;j++){
+		let i = j; // javascript scope is whack
 		syms.push(document.getElementById("stoc"+i+"sym"));
 		nams.push(document.getElementById("stoc"+i+"nam"));
 		document.getElementById("stoc"+i+"buy").addEventListener("click", ()=>{move(i);});

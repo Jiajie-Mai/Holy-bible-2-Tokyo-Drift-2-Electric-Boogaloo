@@ -82,6 +82,7 @@ def ok2rm(uid):
             c.execute("UPDATE a SET u2 = -1 WHERE a.matchid == ?;",(mid,))
     db.commit()
     db.close()
+
 def match_info(uid):
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()
@@ -101,18 +102,19 @@ def init_match(uid):
     print("initialized ",uid," : ",match_info(uid))
     
 def move(uid, mv):
+    print("@@@ player tried to move w/ ",mv)
     i = match_info(uid)
-    if i != None and i[7]>0 and -1*STOCK_NUM <= mv <= 1*STOCK_NUM: # - short + buy |mv| stockno, 0 do nothing
+    if i != None and i[7]>0 and -1*STOCK_NUM <= int(mv) <= 1*STOCK_NUM: # - short + buy |mv| stockno, 0 do nothing
         db = sqlite3.connect(DB_FILE)
         c = db.cursor()
         if i[1] == uid and i[5] == None: # check if u u1 or u2 & that u not already moved this round
-            c.execute("UPDATE a SET choice1 = ? WHERE a.matchid == ?;",(mv,i[0]))
+            c.execute("UPDATE a SET choice1 = ? WHERE a.matchid == ?;",(int(mv),i[0]))
             db.commit()
             db.close()
             if i[6] != None:
                 nxt_round(i[0])
         elif i[2] == uid and i[6] == None:
-            c.execute("UPDATE a SET choice2 = ? WHERE a.matchid == ?;",(mv,i[0]))
+            c.execute("UPDATE a SET choice2 = ? WHERE a.matchid == ?;",(int(mv),i[0]))
             db.commit()
             db.close()
             if i[5] != None:
@@ -122,6 +124,7 @@ def nxt_round(mid):
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()
     b = c.execute("SELECT * FROM a WHERE a.matchid == ?;",(mid,)).fetchone();
+    print(b)
     if b != None and b[5] != None and b[6] != None:
         if b[5] != 0:
             s1 = inf_stock(mid, b[5])
@@ -136,6 +139,8 @@ def nxt_round(mid):
         c.execute("UPDATE a SET round = ?, choice1 = ?, choice2 = ?;",(b[7] - 1, None, None))
         db.commit()
         db.close()
+        rm_stocks(mid)
+        add_stocks(mid,STOCK_NUM)
 
 def match_info_json(uid): # returns all relavent info about match as json -- match id, players, money, round, stocks (not price change ofc).
     b = match_info(uid)
