@@ -5,6 +5,7 @@ import hashlib
 
 from util.db_utils import create_user, login_user, get_user, get_dogbloons, get_userId, change_pass, get_pass
 import util.match as match
+
 app = Flask(__name__)
 app.secret_key = urandom(32)
 
@@ -61,8 +62,11 @@ def logout():
 @app.route("/u/<username>", methods = ["GET"])
 def profile(username):
     '''Homepage if logged in to specific account'''
-    return render_template("userinf.html", user = username, current_user = session.get("user"), money=get_dogbloons(get_userId(session.get("user"))))
-
+    try:
+        return render_template("userinf.html", user = username, current_user = session.get("user"), money=get_dogbloons(get_userId(session.get("user"))))
+    except IndexError:
+        return redirect("/")
+    
 @app.route("/change_password", methods = ["GET", "POST"])
 def change_password():
     oldpass = request.form.get("oldpass")
@@ -84,7 +88,6 @@ def find():
         match.add_user(get_userId(session.get("user")))
         return render_template("find.html")
     except IndexError:
-        flash("not logged in")
         return redirect("/")
 
 @app.route("/findv")
@@ -96,7 +99,25 @@ def findv():
 
 @app.route("/battle")
 def battle():
+    if session.get("user") == None:
+        return redirect("/")
     return render_template("battle.html")
+
+@app.route("/minf")
+def minf():
+    try:
+        return str(match.match_info_json(get_userId(session.get("user"))))
+    except IndexError:
+        return "None"
+
+@app.route("/mv", methods=["GET"])
+def mv():
+    mv = request.args.get("dir")
+    try:
+        match.move(get_userId(session.get("user")), mv if mv != None else 0)
+        return ","
+    except IndexError:
+        return "?"
 
 #@app.route("/thing")
 #def game():
@@ -113,5 +134,6 @@ def battle():
 
 if __name__ == "__main__":
     match.reset()
+    
     app.debug = True
     app.run()

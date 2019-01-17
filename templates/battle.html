@@ -1,32 +1,35 @@
 {% extends "base.html" %}
 
 {% block xtralinks %}
-<script src="{{ url_for('static',filename='find.js') }}"></script>
+<script src="{{ url_for('static',filename='battle.js') }}"></script>
 {% endblock %}
 
 {% block title %}
-{{ p1 }} vs. {{ p2 }}
+Epic Battle
 {% endblock %}
 
 {% block content %}
+<div style="align:center;text-align:center;">
+  <div id="e"></div>
+  <div id="edosh"></div>
+  <div id="round"></div>
 
-<div id="edosh"></div>
-<div id="round"></div>
-<ul  id="stock">
-  <li id="stoc1">
-    <div class="card" style="width:18rem;">
-      <img id="stoc1buy" class="card-img" src="static/buy.png" style="width:18rem;"/>
-      <div class="card-body">
-	   <div id="stoc1nam" class="card-title">TITLE</div>
+  <ul  id="stock" style="color:#000000;">
+	{% for i in range(5) %}
+	<li>
+      <div class="card" style="width:250px;">
+		<img id="stoc{{ i + 1 }}buy" class="card-img" src="{{ url_for('static',filename='buy.png') }}" style="width:250px;"/>
+		<div class="card-body" style="height:100px;">
+		  <div id="stoc{{ i + 1 }}sym" class="card-title" style="font-weight:bold;"></div>
+		  <div id="stoc{{ i + 1 }}nam" class="card-text"></div>
+		</div>
+		<img id="stoc{{ i + 1 }}sel" class="card-img" src="{{ url_for('static',filename='sell.png') }}" style="width:250px;"/>
       </div>
-      <img id="stoc1sel" class="card-img" src="static/sell.png" style="width:18rem;"/>
-    </div>
-  </li>
+	</li>
+	{% endfor %}
+  </ul >
 
-
-
-
-</ul >
-<div id="pdosh"></div>
-
+  <div id="p"></div>
+  <div id="pdosh"></div>
+</div>
 {% endblock %}

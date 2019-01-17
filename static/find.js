@@ -1,4 +1,4 @@
-console.log("find.js loaded");
+console.log("find.js loaded"); // come to the computer interaction club
 document.addEventListener("DOMContentLoaded", ()=>{
 	var dotdotdiv = document.getElementById("dotdotdiv");
 	var a=0;
@@ -8,7 +8,6 @@ document.addEventListener("DOMContentLoaded", ()=>{
 		
 		var r=new XMLHttpRequest();
 		r.addEventListener("load", ()=>{
-			console.log(r);
 			if(r.responseText==="true")
 				document.location="/battle";
 		});

@@ -2,27 +2,29 @@ import sqlite3
 import json
 
 
-from battlestalker import *
-from db_utils import get_username
+from util.battlestalker import *
+from util.db_utils import get_username
 
 
 DB_FILE = "multi.db"
 MAX_ROUNDS = 5
 START_DOSH = 1000
 STOCK_NUM = 5
-
 def reset():
+    s_reset()
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()
     c.execute("DROP TABLE IF EXISTS a;")
     c.execute("CREATE TABLE a (matchid INTEGER PRIMARY KEY, u1 INTEGER, u2 INTEGER, dosh1 INTEGER, dosh2 INTEGER, choice1 INTEGER, choice2 INTEGER, round INTEGER);")
     db.commit()
-    db.close()
+    
 
 def add_user(uid):
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()
-    if(c.execute("SELECT count(*) FROM a WHERE a.u2 == ? OR a.u1 == ?;",(uid,uid)).fetchall()[0][0]==0):
+    if  uid == None or uid == 0:
+        return False
+    if c.execute("SELECT count(*) FROM a WHERE a.u2 == ? OR a.u1 == ?;",(uid,uid)).fetchall()[0][0]==0:
         a = c.execute("SELECT * FROM a WHERE a.u2 == 0;").fetchall()
         print(a)
         if len(a)>0: # if other players are waiting for someone to join a match, join their match, else create a row indicating waiting for match.
@@ -35,7 +37,8 @@ def add_user(uid):
             print(q)
             c.execute("INSERT INTO a (matchid, u1, u2) VALUES (?, ?, 0);",(min_new_id(q),uid))
             db.commit()
-            db.close()
+            
+        return True
         
 def min_new_id(q):
     '''returns the lowest id not in q so we don;t have duplicate ids because uhh that would b bad'''
@@ -62,21 +65,23 @@ def rm_match(mid):
     c = db.cursor()
     c.execute("DELETE FROM a WHERE a.matchid == ?;",(mid,))
     db.commit()
-    db.close()
+    
 
 def ok2rm(uid):
     '''marks a user as having left from the match screen. once both users leave, match gets removed.'''
+    i = matchinfo(uid)
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()
-    i = matchinfo(uid)
     if i!=None and i[7]==0:
         if i[2] == -1 or i[1] == -1:
+            db.close()
             rn_match(i[0])
         elif i[1] == uid:
             c.execute("UPDATE a SET u1 = -1 WHERE a.matchid == ?;",(mid,)) # 0 represents slot open to player joining for match, -1 already ended match.
         else:
             c.execute("UPDATE a SET u2 = -1 WHERE a.matchid == ?;",(mid,))
-
+    db.commit()
+    db.close()
 def match_info(uid):
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()
@@ -85,9 +90,9 @@ def match_info(uid):
     return b[0] if len(b)>0 else None;
 
 def init_match(uid):
+    i = match_info(uid)
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()
-    i = match_info(uid)
     if i != None and i[7] == None:
         c.execute("UPDATE a SET round = ?, dosh1 = ?, dosh2 = ? WHERE a.matchid == ?;", (MAX_ROUNDS, START_DOSH, START_DOSH, i[0])) # possible giving players starting $ based on total money?
         add_stocks(i[0],STOCK_NUM)
@@ -116,7 +121,7 @@ def move(uid, mv):
 def nxt_round(mid):
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()
-    b = c.execute("SELECT * FROM a WHERE a.matchid == ?;",(matchid,)).fetchone();
+    b = c.execute("SELECT * FROM a WHERE a.matchid == ?;",(mid,)).fetchone();
     if b != None and b[5] != None and b[6] != None:
         if b[5] != 0:
             s1 = inf_stock(mid, b[5])
@@ -128,7 +133,7 @@ def nxt_round(mid):
             c.execute("UPDATE a SET dosh2 = ? WHERE a.matchid == ?;",(d2, mid))
         c.execute("UPDATE a SET round = ?, choice1 = ?, choice2 = ?;",(b[7] - 1, None, None))
         db.commit()
-    db.close()
+        db.close()
 
 def match_info_json(uid): # returns all relavent info about match as json -- match id, players, money, round, stocks (not price change ofc).
     b = match_info(uid)
@@ -136,10 +141,10 @@ def match_info_json(uid): # returns all relavent info about match as json -- mat
         s = inf_stock(b[0],0)
         if len(s) > 0:
             if uid == b[1]:
-                d = {"matchid":b[0], "p":get_username(b[1]), "pdosh":b[3], "e":get_username(b[2]), "edosh":b[4], "round":b[7], "stocks":[(i[2],i[3]) for i in s]}
+                d = {"p":get_username(b[1]), "pdosh":b[3], "e":get_username(b[2]), "edosh":b[4], "round":b[7], "stocks":[(i[2],i[3]) for i in s]}
             else:
-                d = {"matchid":b[0], "p":get_username(b[2]), "pdosh":b[4], "e":get_username(b[1]), "edosh":b[3], "round":b[7], "stocks":[(i[2],i[3]) for i in s]}
-            return json.dumps(d).encode('utf-8')
+                d = {"p":get_username(b[2]), "pdosh":b[4], "e":get_username(b[1]), "edosh":b[3], "round":b[7], "stocks":[(i[2],i[3]) for i in s]}
+            return json.dumps(d)
 
 if __name__ == "__main__": # unit testing
     reset()

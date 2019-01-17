@@ -1,6 +1,6 @@
 import sqlite3
 
-from apiOperator import *
+from util.apiOperator import *
 
 DB_FILE = "battlestalks.db"
 
