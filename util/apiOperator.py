@@ -29,10 +29,12 @@ def randSymbols(n):
     return ((i["symbol"],i["name"],priceChange(i["symbol"])) for i in sample(d,n))
 
 def priceChange(sym):
+    '''change in price of a single stock'''
     s = apiRetrieve(IEX_STUB + "stock/", sym + IEX_ENDER)
     return float(s["quote"]["changePercent"])*5 # multiplier makes number bigger, more epic
 
 def doggyPicture():
+    '''gets the url for a dog picture from the randomdog api'''
     d = apiRetrieve(DOG_STUB)
     if d!=None and d["status"] == "success":
         return d["message"]
