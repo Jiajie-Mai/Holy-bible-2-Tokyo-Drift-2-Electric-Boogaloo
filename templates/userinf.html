@@ -1,15 +1,22 @@
 {% extends "base.html" %}
 
 {% block content %}
-<p>Username: {{ user }} </p>
 
-<ol>
-  {% for stock in stocks %}
-  <li>{{stock.name}}: {{stock.number}} </li>
-  {% endfor %}
-</ol>
-
-<p>Dogbloons In The Bank: {{ money }}</p>
-<a href = "{{ url_for('change_password') }}">Change Your Password</a>
-
+<div class="centerbody">
+  <br/>
+  <br/>
+  <h1> {{user}} </h1>
+  <br/>
+  <br/>
+  <h3>Dogbloons In The Bank: <strong>{{ money }}</strong></h3>
+  <a style="color:white;" href = "{{ url_for('change_password') }}">Change Your Password</a>
+  <br/>
+  <br/>
+  <br/>
+  <br/>
+  <br/>
+  <br/>
+  <br/>
+  <a style="color:white;" href ="https://github.com/Jiajie-Mai/Holy-bible-2-Tokyo-Drift-2-Electric-Boogaloo">Download our game here!</a>
+</div>
 {% endblock %}
