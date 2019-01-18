@@ -14,6 +14,7 @@ app.secret_key = urandom(32)
 def home():
     return render_template("home.html", current_user = session.get("user"))
 
+'''Reroutes users to make an account'''
 @app.route("/signup", methods = ["GET", "POST"])
 def signup():
     '''Looks for current user; if exists, redirs them to homepage.  Otherwise, sends them to signup page'''
@@ -32,7 +33,7 @@ def signup():
             return redirect(url_for("home"))
         return render_template("signup.html", title = "Sign Up")
 
-
+'''Reroutes users to login to their account'''
 @app.route("/login", methods = ["GET", "POST"])
 def login():
     if "user" in session.keys():
@@ -51,7 +52,7 @@ def login():
             return render_template("login.html", title = "Login")
         return redirect(url_for("home"))
 
-
+'''Allows users to exit their account and redirects to home page'''
 @app.route("/logout", methods = ["GET"])
 def logout():
     '''Removes current user from session.keys()'''
@@ -59,7 +60,7 @@ def logout():
         session.pop("user")
     return redirect(url_for("login"))
 
-
+'''Displays user info'''
 @app.route("/u/<username>", methods = ["GET"])
 def profile(username):
     '''Homepage if logged in to specific account'''
@@ -68,6 +69,7 @@ def profile(username):
     except IndexError:
         return redirect("/")
 
+'''Reroutes user to change current password'''
 @app.route("/change_password", methods = ["GET", "POST"])
 def change_password():
     if request.method == "GET":
@@ -94,6 +96,7 @@ def find():
     except IndexError:
         return redirect("/")
 
+'''Allows users to find other users to battle'''
 @app.route("/findv")
 def findv():
     try:
@@ -101,6 +104,7 @@ def findv():
     except IndexError:
         return "false"
 
+'''Reroutes to battle system'''
 @app.route("/battle")
 def battle():
     if session.get("user") == None:
@@ -123,6 +127,8 @@ def mv():
     except IndexError:
         return "?"
 
+
+'''Win conditions'''
 @app.route("/win")
 def v():
     flash("You dogged persistence carried you to victory.")
