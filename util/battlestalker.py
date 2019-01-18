@@ -6,6 +6,7 @@ DB_FILE = "battlestalks.db"
 
 
 def s_reset():
+    '''clears all data from stocks database'''
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()
     c.execute("DROP TABLE IF EXISTS s;")
@@ -14,6 +15,7 @@ def s_reset():
     db.close()
 
 def add_stocks(mid, n):
+    '''generates a random list of n stocks and ads to database under matchid & each with different stockno'''
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()
     stocks = randSymbols(n)
@@ -23,6 +25,7 @@ def add_stocks(mid, n):
     db.close()
 
 def inf_stock(mid, stockno):
+    '''info on a spacific stock used in a match by stockno, or all the stocks if stockno == 0'''
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()
     if stockno == 0:
@@ -33,6 +36,7 @@ def inf_stock(mid, stockno):
     return b
 
 def rm_stocks(mid):
+    '''deletes the stocks for a certain match '''
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()
     c.execute("DELETE FROM s WHERE s.matchid == ?;",(mid,))

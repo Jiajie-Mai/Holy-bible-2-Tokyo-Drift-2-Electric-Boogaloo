@@ -11,6 +11,7 @@ MAX_ROUNDS = 5
 START_DOSH = 100000
 STOCK_NUM = 5
 def reset():
+    '''clears all data from table'''
     s_reset()
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()
@@ -20,6 +21,7 @@ def reset():
     
 
 def add_user(uid):
+    '''adds a user to the list looking for matches, either placing them in a match with another user or searching for a match for them by themselves'''
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()
     if  uid == None or uid == 0:
@@ -52,6 +54,7 @@ def min_new_id(q):
     return 1
 
 def rdy_chk(uid):
+    '''checks a match found by searching for one user to see if to players have been found'''
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()
     b = c.execute("SELECT * FROM a WHERE a.u1 == ? OR a.u2 == ?;",(uid,uid)).fetchall();
@@ -83,6 +86,7 @@ def ok2rm(uid):
     db.close()
 
 def match_info(uid):
+    '''returns database row for match with uid as player'''
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()
     b = c.execute("SELECT * FROM a WHERE a.u1 == ? OR a.u2 == ?;",(uid,uid)).fetchall();
@@ -90,6 +94,7 @@ def match_info(uid):
     return b[0] if len(b)>0 else None;
 
 def init_match(uid):
+    '''sets up database values for start of match (starting currency, rounds left)'''
     i = match_info(uid)
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()
@@ -100,6 +105,7 @@ def init_match(uid):
     db.close()
     
 def move(uid, mv):
+    '''marks a player as having made a move, if both players have moved advances to next round'''
     i = match_info(uid)
     if i != None and i[7]>0 and -1*STOCK_NUM <= int(mv) <= 1*STOCK_NUM: # - short + buy |mv| stockno, 0 do nothing
         db = sqlite3.connect(DB_FILE)
@@ -118,6 +124,7 @@ def move(uid, mv):
                 nxt_round(i[0])
 
 def nxt_round(mid):
+    '''calculats change in $ based on stocks purchased, decrements rounds left, generates a new list of stocks.'''
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()
     b = c.execute("SELECT * FROM a WHERE a.matchid == ?;",(mid,)).fetchone();
@@ -144,6 +151,7 @@ def nxt_round(mid):
             distr_winnings(mid)
             
 def distr_winnings(mid):
+    '''after match has ended, picks winners and gives them money'''
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()  
     b = c.execute("SELECT * FROM a WHERE a.matchid == ?;",(mid,)).fetchone();
@@ -158,7 +166,8 @@ def distr_winnings(mid):
     db.close()
 
 def match_info_json(uid): # returns all relavent info about match as json -- match id, players, money, round, stocks (not price change ofc).
-    b = match_info(uid)
+    '''json string of info on match & stocks in display players need to display.'''
+    b = match_info(uid)    
     if b != None:
         s = inf_stock(b[0],0)
         if len(s) > 0:
