@@ -59,11 +59,13 @@ def login_user(username, password):
     db.close()
     return True
 
+'''hashes obj encoded in utf-8'''
 def hash(obj):
     hash_obj = hashlib.md5(obj)
     hashpass = hash_obj.hexdigest()
     return hashpass
 
+'''Changes password for users that have already logged in'''
 def change_pass(oldpass, newpass, confpass, username):
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()
@@ -76,8 +78,7 @@ def change_pass(oldpass, newpass, confpass, username):
     elif newpass != confpass:
         flash("Confirmation fail")
         return False
-    ''' Set current session user '''
-
+    ''' Set new password for user '''
     c.execute("UPDATE users SET password = ? WHERE users.id == ?;",(hash(newpass), get_userId(username)))
     db.commit()
     db.close()
@@ -106,6 +107,7 @@ def get_userId(username):
     db.close()
     return userId[0][0]
 
+'''Currency'''
 def get_dogbloons(userId):
     db = sqlite3.connect(DB_FILE)
     c = db.cursor()
