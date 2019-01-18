@@ -111,6 +111,7 @@ def battle():
         return redirect("/")
     return render_template("battle.html", doggo1 = doggyPicture(), doggo2 = doggyPicture())
 
+'''sends match info as json string'''
 @app.route("/minf")
 def minf():
     try:
@@ -118,6 +119,7 @@ def minf():
     except IndexError:
         return "None"
 
+'''listens for move from client in battle'''
 @app.route("/mv", methods=["GET"])
 def mv():
     mv = request.args.get("dir")
@@ -128,7 +130,7 @@ def mv():
         return "?"
 
 
-'''Win conditions'''
+'''Win/loss conditions'''
 @app.route("/win")
 def v():
     flash("You dogged persistence carried you to victory.")
@@ -141,8 +143,8 @@ def l():
 def t():
     flash("A tie! And it was so doggone close!")
     return redirect("/")
-if __name__ == "__main__":
-    match.reset()
 
+if __name__ == "__main__":
+    match.reset() # any lingering battles left from when app closed down removed to not cause issues.
     app.debug = True
     app.run()
