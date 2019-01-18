@@ -1,7 +1,6 @@
-
 console.log("battle.js loaded");
 document.addEventListener("DOMContentLoaded", () => {
-	setInterval( ()=>{
+	setInterval( ()=>{ // check for updates to gamestate
 		var req=new XMLHttpRequest();
 		req.addEventListener("load", ()=>{
 			if(req.responseText != "None"){
@@ -27,8 +26,8 @@ document.addEventListener("DOMContentLoaded", () => {
 		});
 		req.open("GET","/minf");
 		req.send(null);
-	},2000);
-	var move = (i)=>{
+	},2000); // 2 second interval to not throttle server
+	var move = (i)=>{ // sends server info that client has moved.
 		console.log(i)
 		var req = new XMLHttpRequest();
 		req.open("GET","/mv?dir="+i);
